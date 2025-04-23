@@ -2,23 +2,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-
-const CertificateCard = ({ title, date, issuer, image }) => (
-  <div 
-    className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
-    data-aos="fade-up"
-  >
-    <img 
-      src={`/certificates/${image}`} 
-      alt={title} 
-      className="w-full h-48 object-cover rounded-lg mb-4"
-    />
-    <h3 className="text-white text-lg font-semibold mb-2">{title}</h3>
-    <p className="text-gray-400 text-sm mb-2">{issuer}</p>
-    <p className="text-purple-400 text-sm">{date}</p>
-  </div>
-);
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 
 const Certificates = () => {
   const navigate = useNavigate();
@@ -31,7 +15,6 @@ const Certificates = () => {
 
   const handleBack = () => {
     navigate('/');
-    window.scrollTo(0, 0);
   };
 
   const certificates = [
@@ -101,10 +84,10 @@ const Certificates = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030014] text-white py-20 px-[5%] md:px-[10%]">
+    <div className="min-h-screen bg-gray-50 text-gray-800 py-20 px-[5%] md:px-[10%]">
       <button 
         onClick={handleBack}
-        className="mb-8 px-4 py-2 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="mb-8 px-4 py-2 flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition-colors rounded-lg hover:bg-gray-100"
       >
         <ArrowLeft className="w-5 h-5" />
         Back to Home
@@ -112,13 +95,13 @@ const Certificates = () => {
 
       <div className="text-center mb-12">
         <h1 
-          className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent"
+          className="text-4xl md:text-5xl font-bold text-gradient"
           data-aos="fade-down"
         >
           Professional Certifications
         </h1>
         <p 
-          className="text-gray-400 mt-4"
+          className="text-gray-600 mt-4 max-w-2xl mx-auto"
           data-aos="fade-up"
         >
           Cloud Computing, Database, and Development Certifications
@@ -129,30 +112,33 @@ const Certificates = () => {
         {certificates.map((cert, index) => (
           <div 
             key={index}
-            className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+            className="group bg-white rounded-xl p-6 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300"
             data-aos="fade-up"
-            data-aos-delay={index * 100}
+            data-aos-delay={index * 50}
           >
-            <img 
-              src={`/certificates/${cert.image}`} 
-              alt={cert.title} 
-              className="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform duration-300"
-            />
-            <h3 className="text-white text-lg font-semibold mb-2">{cert.title}</h3>
-            <p className="text-gray-400 text-sm mb-2">{cert.issuer}</p>
-            <p className="text-purple-400 text-sm mb-2">{cert.date}</p>
+            <div className="overflow-hidden rounded-lg mb-4">
+              <img 
+                src={`/certificates/${cert.image}`} 
+                alt={cert.title} 
+                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <h3 className="text-gray-800 text-lg font-semibold mb-2">{cert.title}</h3>
+            <p className="text-gray-500 text-sm mb-2">{cert.issuer}</p>
+            <p className="text-indigo-600 text-sm font-medium mb-3">{cert.date}</p>
             {cert.verifyLink && (
               <a 
                 href={`https://${cert.verifyLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 text-sm hover:text-blue-300 transition-colors"
+                className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors"
               >
                 Verify Certificate
+                <ExternalLink className="w-3 h-3" />
               </a>
             )}
             {cert.certId && (
-              <p className="text-gray-500 text-sm">Certificate ID: {cert.certId}</p>
+              <p className="text-gray-400 text-xs mt-2">Certificate ID: {cert.certId}</p>
             )}
           </div>
         ))}

@@ -1,25 +1,29 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const GalleryImage = ({ src, title, description }) => (
   <div 
-    className="group relative overflow-hidden rounded-xl"
+    className="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
     data-aos="fade-up"
   >
     <img 
       src={`/gallery/${src}`} 
       alt={title}
-      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
     />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <h3 className="text-white text-lg font-semibold mb-1">{title}</h3>
-        <p className="text-gray-300 text-sm">{description}</p>
+    <div 
+      className="absolute inset-0 bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end"
+    >
+      <div className="p-4">
+        <h3 className="text-gray-800 text-lg font-semibold mb-1 group-hover:text-indigo-700 transition-colors">{title}</h3>
+        <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">{description}</p>
       </div>
+      <ImageIcon className="absolute top-3 right-3 w-5 h-5 text-gray-400 opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
     </div>
+    <div className="group absolute inset-0"></div>
   </div>
 );
 
@@ -67,13 +71,12 @@ const Gallery = () => {
 
   return (
     <div 
-      className="min-h-screen bg-[#030014] text-white py-20 px-[5%] md:px-[10%]"
+      className="min-h-screen bg-gray-50 text-gray-800 py-20 px-[5%] md:px-[10%]"
       id="Gallery"
     >
-      {/* Back button */}
       <button 
         onClick={() => navigate('/')}
-        className="mb-8 px-4 py-2 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="mb-8 px-4 py-2 flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition-colors rounded-lg hover:bg-gray-100"
       >
         <ArrowLeft className="w-5 h-5" />
         Back to Home
@@ -81,26 +84,26 @@ const Gallery = () => {
 
       <div className="text-center mb-12">
         <h1 
-          className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent"
+          className="text-4xl md:text-5xl font-bold text-gradient"
           data-aos="fade-down"
         >
           Achievement Gallery
         </h1>
         <p 
-          className="text-gray-400 mt-4"
+          className="text-gray-600 mt-4 max-w-2xl mx-auto"
           data-aos="fade-up"
         >
           Showcasing moments of excellence and academic achievements
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {galleryItems.map((item, index) => (
-          <GalleryImage 
-            key={index} 
-            {...item}
-            data-aos-delay={index * 100}
-          />
+          <div key={index} className="group">
+            <GalleryImage 
+              {...item}
+            />
+          </div>
         ))}
       </div>
     </div>

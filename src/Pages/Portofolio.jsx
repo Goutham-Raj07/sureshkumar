@@ -1,123 +1,9 @@
 import React, { useEffect, useState, useCallback, memo } from "react";
-import { db, collection } from "../firebase";
-import { getDocs } from "firebase/firestore";
 import PropTypes from "prop-types";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import CardProject from "../components/CardProject";
-import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
-import { Code, Award, Boxes, ArrowLeft } from "lucide-react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Code, Award, Boxes, ArrowLeft, ExternalLink, BookOpen, Users, Calendar } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-
-// Separate ShowMore/ShowLess button component
-const ToggleButton = ({ onClick, isShowingMore }) => (
-  <button
-    onClick={onClick}
-    className="
-      px-3 py-1.5
-      text-slate-300 
-      hover:text-white 
-      text-sm 
-      font-medium 
-      transition-all 
-      duration-300 
-      ease-in-out
-      flex 
-      items-center 
-      gap-2
-      bg-white/5 
-      hover:bg-white/10
-      rounded-md
-      border 
-      border-white/10
-      hover:border-white/20
-      backdrop-blur-sm
-      group
-      relative
-      overflow-hidden
-    "
-  >
-    <span className="relative z-10 flex items-center gap-2">
-      {isShowingMore ? "See Less" : "See More"}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={`
-          transition-transform 
-          duration-300 
-          ${isShowingMore ? "group-hover:-translate-y-0.5" : "group-hover:translate-y-0.5"}
-        `}
-      >
-        <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
-      </svg>
-    </span>
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
-  </button>
-);
-
-function TabPanel({ children, value, index, ...other }) {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
-const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
-];
 
 // Update the publications data
 const publications = [
@@ -191,55 +77,96 @@ const researchAreas = [
   "Data Mining"
 ];
 
+// Update the header section
+const Header = () => (
+  <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="800">
+    <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-gradient">
+      Research & Publications
+    </h2>
+    <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base mt-3">
+      Explore my research contributions, academic profiles, and program involvement.
+    </p>
+  </div>
+);
+
+// Updated Publication Card styles for light theme
 const PublicationCard = memo(({ publication }) => (
-  <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
-    <div className="text-purple-400 text-sm mb-2">{publication.year}</div>
-    <h3 className="text-white text-lg font-semibold mb-2">{publication.title}</h3>
-    <p className="text-gray-400 text-sm mb-2">{publication.authors}</p>
-    <p className="text-gray-500 text-sm italic">{publication.journal}</p>
-    <p className="text-gray-600 text-xs mt-2">{publication.citation}</p>
+  // Card base style
+  <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300">
+    {/* Year */}
+    <div className="text-indigo-600 text-sm font-semibold mb-2 flex items-center gap-1.5">
+        <Calendar className="w-4 h-4 opacity-70" />
+        {publication.year}
+    </div>
+    {/* Title */}
+    <h3 className="text-gray-800 text-lg font-semibold mb-2 leading-tight">{publication.title}</h3>
+    {/* Authors */}
+    <div className="text-gray-600 text-sm mb-3 flex items-start gap-1.5">
+        <Users className="w-4 h-4 mt-0.5 opacity-70 shrink-0" />
+        <span>{publication.authors}</span>
+    </div>
+    {/* Journal */}
+    <div className="text-gray-500 text-sm italic mb-2 flex items-start gap-1.5">
+        <BookOpen className="w-4 h-4 mt-0.5 opacity-70 shrink-0" />
+        <span>{publication.journal}</span>
+    </div>
+    {/* Citation (optional, can be smaller) */}
+    {/* <p className="text-gray-400 text-xs mt-2">{publication.citation}</p> */}
+    {/* DOI Link */}
     {publication.doi && (
       <a 
         href={publication.doi}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-purple-400 text-sm mt-2 inline-block hover:text-purple-300"
+        className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-2"
       >
-        DOI: {publication.doi}
+        View Publication
+        <ExternalLink className="w-3.5 h-3.5" />
       </a>
     )}
   </div>
 ));
 
-// Add new components for My Works section
+// Updated Work Card (Academic Profiles) styles for light theme
 const WorkCard = memo(({ title, description, link, icon: Icon }) => (
-  <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
-    <div className="flex items-start justify-between mb-4">
-      <h3 className="text-white text-lg font-semibold">{title}</h3>
-      {Icon && <Icon className="w-6 h-6 text-purple-400" />}
+  // Card base style
+  <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 h-full flex flex-col">
+    <div className="flex items-start justify-between mb-3">
+       {/* Title */}
+      <h3 className="text-gray-800 text-lg font-semibold">{title}</h3>
+      {/* Icon */}
+      {Icon && <Icon className="w-6 h-6 text-indigo-500 opacity-80" />}
     </div>
-    <p className="text-gray-400 text-sm mb-4">{description}</p>
+     {/* Description */}
+    <p className="text-gray-600 text-sm mb-4 flex-grow">{description}</p>
+    {/* Link */}
     {link && (
       <a 
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center text-purple-400 text-sm hover:text-purple-300 transition-colors"
+        className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-auto" // mt-auto pushes link down
       >
-        Visit Link
-        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
+        Visit Profile
+        <ExternalLink className="w-3.5 h-3.5" />
       </a>
     )}
   </div>
 ));
 
+// Updated Program Card styles for light theme
 const ProgramCard = memo(({ title, description, date }) => (
-  <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
-    <div className="text-purple-400 text-sm mb-2">{date}</div>
-    <h3 className="text-white text-lg font-semibold mb-2">{title}</h3>
-    <p className="text-gray-400 text-sm">{description}</p>
+  // Card base style
+  <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300">
+     {/* Date */}
+    <div className="text-indigo-600 text-sm font-semibold mb-2 flex items-center gap-1.5">
+        <Calendar className="w-4 h-4 opacity-70" />
+        {date}
+    </div>
+    {/* Title */}
+    <h3 className="text-gray-800 text-lg font-semibold mb-2 leading-tight">{title}</h3>
+     {/* Description */}
+    <p className="text-gray-600 text-sm">{description}</p>
   </div>
 ));
 
@@ -248,12 +175,12 @@ const academicProfiles = [
   {
     title: "Scopus",
     description: "Scopus is a comprehensive academic database that indexes and abstracts research articles from various disciplines. It provides citation analysis tools and helps researchers track and assess scholarly publications. Developed by Elsevier, Scopus is widely used for literature review and research impact assessment.",
-    link: "https://www.scopus.com/authid/[your-scopus-id]" // Add your Scopus profile link
+    link: "https://www.scopus.com/authid/detail.uri?authorId=57215495873" // Add your Scopus profile link
   },
   {
     title: "ORCID",
     description: "ORCID, or Open Researcher and Contributor ID, is a non-profit organization that provides researchers with a unique digital identifier. This persistent identifier distinguishes individual researchers and ensures accurate attribution of their work. Visit my ORCID work below link provided.",
-    link: "https://orcid.org/[your-orcid-id]" // Add your ORCID link
+    link: "https://orcid.org/my-orcid?orcid=0000-0001-5655-2718" // Add your ORCID link
   }
 ];
 
@@ -270,101 +197,29 @@ const programs = [
   }
 ];
 
-// Update the header section
-const Header = () => (
-  <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
-    <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-      <span style={{
-        color: '#6366f1',
-        backgroundImage: 'linear-gradient(45deg, #6366f1 10%, #a855f7 93%)',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        WebkitTextFillColor: 'transparent'
-      }}>
-        Research Publications
-      </span>
-    </h2>
-    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-      Explore my research contributions in Cloud Computing, Security, and Machine Learning
-    </p>
-  </div>
-);
-
-// Update the main component
+// Updated main component structure and styles
 const PublicationsPage = () => {
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState([]);
-  const [certificates, setCertificates] = useState([]);
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const [showAllCertificates, setShowAllCertificates] = useState(false);
-  const isMobile = window.innerWidth < 768;
-  const initialItems = isMobile ? 4 : 6;
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Initialize AOS once
     AOS.init({
-      once: false, // This will make animations occur only once
+      once: false, // Keep animations potentially repeating on scroll
+      duration: 600, // Slightly faster animation
+      offset: 50, // Trigger animation slightly earlier
     });
   }, []);
 
-  const fetchData = useCallback(async () => {
-    try {
-      const projectCollection = collection(db, "projects");
-      const certificateCollection = collection(db, "certificates");
-
-      const [projectSnapshot, certificateSnapshot] = await Promise.all([
-        getDocs(projectCollection),
-        getDocs(certificateCollection),
-      ]);
-
-      const projectData = projectSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        TechStack: doc.data().TechStack || [],
-      }));
-
-      const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      // Store in localStorage
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const toggleShowMore = useCallback((type) => {
-    if (type === 'projects') {
-      setShowAllProjects(prev => !prev);
-    } else {
-      setShowAllCertificates(prev => !prev);
-    }
-  }, []);
-
-  const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
-  const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
-
   return (
     <div 
-      className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" 
+      // Updated main container styles
+      className="md:px-[10%] px-[5%] py-20 w-full min-h-screen bg-gray-50 text-gray-800 overflow-hidden" 
       id="Research-Publications"
     >
+       {/* Back button - Updated styles */}
       <button 
         onClick={() => navigate('/')}
-        className="mb-8 px-4 py-2 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="mb-12 px-4 py-2 flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition-colors rounded-lg hover:bg-gray-100"
+        aria-label="Back to Home"
       >
         <ArrowLeft className="w-5 h-5" />
         Back to Home
@@ -372,50 +227,52 @@ const PublicationsPage = () => {
 
       <Header />
       
-      {/* Research Areas */}
-      <div className="mb-10">
-        <h3 className="text-xl font-semibold text-white mb-4">Research Areas</h3>
+      {/* Research Areas Section */}
+      <section className="mb-16" data-aos="fade-up" data-aos-delay="100">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-5">Research Areas</h3>
         <div className="flex flex-wrap gap-3">
           {researchAreas.map((area, index) => (
             <span 
               key={index}
-              className="px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full text-gray-300 text-sm border border-white/10"
+              // Updated research area tag styles
+              className="px-4 py-2 bg-white border border-gray-200 shadow-xs rounded-full text-gray-700 text-sm hover:bg-gray-100 transition-colors"
             >
               {area}
-          </span>
+            </span>
           ))}
-        </div>
-      </div>
+                  </div>
+      </section>
 
-      {/* Publications Grid */}
-      <div className="mb-16">
-        <h3 className="text-xl font-semibold text-white mb-6">Publications</h3>
+      {/* Publications Grid Section */}
+      <section className="mb-16" data-aos="fade-up" data-aos-delay="200">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Publications</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {publications.map((pub, index) => (
-            <PublicationCard key={index} publication={pub} />
+            // Pass AOS delay individually if needed, or rely on parent section fade-up
+            <PublicationCard key={index} publication={pub} /> 
                 ))}
               </div>
-            </div>
+      </section>
 
-      {/* Academic Profiles */}
-      <div className="mb-16">
-        <h3 className="text-xl font-semibold text-white mb-6">Academic Profiles</h3>
+      {/* Academic Profiles Section */}
+      <section className="mb-16" data-aos="fade-up" data-aos-delay="300">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Academic Profiles</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {academicProfiles.map((profile, index) => (
             <WorkCard key={index} {...profile} />
                 ))}
               </div>
-            </div>
+      </section>
 
-      {/* Programs */}
-      <div className="mb-16">
-        <h3 className="text-xl font-semibold text-white mb-6">Programs & Events</h3>
+      {/* Programs Section */}
+      <section className="pb-10" data-aos="fade-up" data-aos-delay="400"> 
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Programs & Events</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {programs.map((program, index) => (
             <ProgramCard key={index} {...program} />
                 ))}
               </div>
-            </div>
+      </section>
     </div>
   );
 };

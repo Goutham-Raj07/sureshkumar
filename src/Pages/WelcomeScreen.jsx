@@ -16,7 +16,7 @@ const TypewriterEffect = ({ text }) => {
       } else {
         clearInterval(timer);
       }
-    }, 260);
+    }, 150);
 
     return () => clearInterval(timer);
   }, [text]);
@@ -24,23 +24,25 @@ const TypewriterEffect = ({ text }) => {
   return (
     <span className="inline-block">
       {displayText}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse text-indigo-600">|</span>
     </span>
   );
 };
 
 const BackgroundEffect = () => (
-  <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 blur-3xl animate-pulse" />
-    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/10 via-transparent to-purple-600/10 blur-2xl animate-float" />
+  <div 
+    className="absolute inset-0 overflow-hidden pointer-events-none"
+  >
+     {/* Optional: Keep a very faint gradient overlay */}
+     <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/30 to-purple-50/30 opacity-50" /> 
   </div>
 );
 
 const IconButton = ({ Icon }) => (
   <div className="relative group hover:scale-110 transition-transform duration-300">
-    <div className="absolute -inset-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full blur opacity-30 group-hover:opacity-75 transition duration-300" />
-    <div className="relative p-2 sm:p-3 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+    <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-sm opacity-20 group-hover:opacity-40 transition duration-300" />
+    <div className="relative p-2 sm:p-3 bg-white backdrop-blur-sm rounded-full border border-gray-200 shadow-sm">
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-gray-600 group-hover:text-indigo-600 transition-colors" />
     </div>
   </div>
 );
@@ -59,8 +61,8 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
       setIsLoading(false);
       setTimeout(() => {
         onLoadingComplete?.();
-      }, 1000);
-    }, 4000);
+      }, 800);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, [onLoadingComplete]);
@@ -68,24 +70,24 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
   const containerVariants = {
     exit: {
       opacity: 0,
-      scale: 1.1,
-      filter: "blur(10px)",
+      scale: 1.05,
+      filter: "blur(5px)",
       transition: {
-        duration: 0.8,
-        ease: "easeInOut",
+        duration: 0.6,
+        ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   };
 
   const childVariants = {
     exit: {
-      y: -20,
+      y: -10,
       opacity: 0,
       transition: {
-        duration: 0.4,
-        ease: "easeInOut",
+        duration: 0.3,
+        ease: "easeOut",
       },
     },
   };
@@ -94,7 +96,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 bg-[#030014]"
+          className="fixed inset-0 bg-gray-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit="exit"
@@ -113,7 +115,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                   <div
                     key={index}
                     data-aos="fade-down"
-                    data-aos-delay={index * 200}
+                    data-aos-delay={index * 150}
                   >
                     <IconButton Icon={Icon} />
                   </div>
@@ -130,21 +132,21 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                     <span
                       data-aos="fade-right"
                       data-aos-delay="200"
-                      className="inline-block px-2 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+                      className="inline-block px-2 text-gray-700"
                     >
                       Welcome
                     </span>{" "}
                     <span
                       data-aos="fade-right"
-                      data-aos-delay="400"
-                      className="inline-block px-2 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+                      data-aos-delay="350"
+                      className="inline-block px-2 text-gray-700"
                     >
                       To
                     </span>{" "}
                     <span
                       data-aos="fade-right"
-                      data-aos-delay="600"
-                      className="inline-block px-2 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+                      data-aos-delay="500"
+                      className="inline-block px-2 text-gray-700"
                     >
                       My
                     </span>
@@ -152,15 +154,15 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                   <div>
                     <span
                       data-aos="fade-up"
-                      data-aos-delay="800"
-                      className="inline-block px-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
+                      data-aos-delay="650"
+                      className="inline-block px-2 text-gradient"
                     >
                       Portfolio
                     </span>{" "}
                     <span
                       data-aos="fade-up"
-                      data-aos-delay="1000"
-                      className="inline-block px-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
+                      data-aos-delay="800"
+                      className="inline-block px-2 text-gradient"
                     >
                       Website
                     </span>
@@ -173,19 +175,18 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                 className="text-center"
                 variants={childVariants}
                 data-aos="fade-up"
-                data-aos-delay="1200"
+                data-aos-delay="950"
               >
                 <a
-                  href="https://www.abc.com/"
-                  className="inline-flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full relative group hover:scale-105 transition-transform duration-300"
+                  href="https://www.linkedin.com/in/suresh-kumar-s-srinivasan-b5a7b435/"
+                  className="inline-flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full relative group hover:scale-105 transition-transform duration-300 bg-white border border-gray-200 shadow-sm hover:border-gray-300"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300" />
                   <div className="relative flex items-center gap-2 text-lg sm:text-xl md:text-2xl">
                     <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
-                    <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                      <TypewriterEffect text="www.eki.my.id" />
+                    <span className="text-gray-700 group-hover:text-gradient transition-all">
+                      <TypewriterEffect text="Professor Suresh Kumar S" />
                     </span>
                   </div>
                 </a>
