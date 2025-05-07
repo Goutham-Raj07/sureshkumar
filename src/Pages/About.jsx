@@ -188,7 +188,7 @@ const AboutPage = () => {
   const navigate = useNavigate();
 
   const { totalPublications, totalCertificates, YearExperience } = useMemo(() => {
-    const storedPublications = 8;
+    const storedPublications = 17;
     const storedCertificates = 9;
 
     return {
@@ -287,6 +287,17 @@ const AboutPage = () => {
               Professor and Researcher with over 20 years of experience in Computer Science and Engineering. 
               Specializing in Machine Learning, Deep Learning, and IoT, dedicated to advancing technology through research and education.
             </p>
+
+            <a
+              href="https://scholar.google.com/citations?user=q3bismUAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mb-2 text-indigo-600 hover:text-purple-600 font-medium underline transition-colors duration-200"
+              data-aos="fade-up"
+              data-aos-duration="900"
+            >
+              View Google Scholar Profile
+            </a>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
               <a

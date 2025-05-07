@@ -46,7 +46,7 @@ const ContactPage = () => {
       const formData = new FormData(e.target);
       
       // Send form data using fetch instead of form submission
-      const response = await fetch('https://formsubmit.co/sureshkumar.s@rajalakshmi.edu.in', {
+      const response = await fetch('https://formsubmit.co/sureshkumar.s@rajalakshmi.edu.inunt t', {
         method: 'POST',
         body: formData
       });

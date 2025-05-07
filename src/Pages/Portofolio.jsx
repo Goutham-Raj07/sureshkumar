@@ -8,61 +8,123 @@ import { useNavigate } from 'react-router-dom';
 // Update the publications data
 const publications = [
   {
-    year: "2021",
-    title: "Nonvolatile kernel rootkit detection using cross-view clean boot in cloud computing",
-    authors: "Geetha Ramani R, Suresh Kumar S",
-    journal: "Concurrency Computat Pract Exper",
-    citation: "2021;33:e5239",
-    doi: "https://doi.org/10.1002/cpe.5239"
+    title: "Nonvolatile kernel rootkit detection using cross‐view clean boot in cloud computing",
+    authors: "R Geetha Ramani, S Suresh Kumar",
+    journal: "Concurrency and Computation: Practice and Experience 33 (3), e5239",
+    year: 2021,
+    citedBy: 9
   },
   {
-    year: "2020",
-    title: "Automated Attendance Management using One Shot Learning",
-    authors: "K. Arvind Vignesh, S. Suresh Kumar",
-    journal: "International Journal of Computer Science and Mobile Computing",
-    citation: "Vol. 9(3), pp. 244-247, March 2020"
-  },
-  {
-    year: "2020",
-    title: "Assessing Car Damage using Mask R-CNN",
-    authors: "P. Sarath, M. Soorya, A. Shaik Abdul Rahman, S. Suresh Kumar, K. Devaki",
-    journal: "International Journal of Engineering and Advanced Technology (IJEAT)",
-    citation: "Vol. 9(3), pp. 2287-2290, February 2020"
-  },
-  {
-    year: "2019",
-    title: "Knowledge Representation and Answer Evaluation System using Language Processing Algorithm",
-    authors: "Sridevi, V., Suresh Kumar, S., Supraja, B., Udhayakumar, S",
-    journal: "International Conference on Vision Towards Emerging Trends in Communication and Networking, ViTECoN 2019",
-    citation: "2019, 8899525"
-  },
-  {
-    year: "2019",
-    title: "Non-Volatile Kernel Root kit Detection and Prevention in Cloud Computing",
-    authors: "R. Geetha Ramani, S. Suresh Kumar",
-    journal: "International Journal of Engineering and Advanced Technology (IJEAT)",
-    citation: "Vol. 8 (5S3), pp 139-144, July 2019"
-  },
-  {
-    year: "2015",
-    title: "Detecting the Rootkit through Dynamic Analysis",
-    authors: "D. Suganya Gandhi and S. Suresh Kumar",
-    journal: "International Journal of Science and Research",
-    citation: "Vol. 4, no. 3, pp. 1864-1868, 2015"
-  },
-  {
-    year: "2013",
     title: "Rootkit (malicious code) prediction through data mining methods and techniques",
-    authors: "R. Geetha Ramani, S. Suresh Kumar, Shomona Gracia Jacob",
-    journal: "IEEE International Conference on Computational Intelligence and Computing Research",
-    citation: "2013"
+    authors: "RG Ramani, SS Kumar, SG Jacob",
+    journal: "2013 IEEE International Conference on Computational Intelligence and …",
+    year: 2013,
+    citedBy: 7
   },
   {
-    year: "2011",
-    title: "Asynchronous packet scheduling for combined input-cross point -output queued switch by optimizing the buffer size",
-    authors: "R. Saranya, Suresh kumar",
-    journal: "International conference on Intelligent Science and Technology-SUNIST",
-    citation: "2011"
+    title: "Advance Kernel Rootkit Detection: Survey",
+    authors: "SS Kumar, T SudalaiMuthu",
+    journal: "2023 7th International Conference on Intelligent Computing and Control …",
+    year: 2023,
+    citedBy: 3
+  },
+  {
+    title: "Knowledge representation and answer evaluation system using language processing algorithm",
+    authors: "V Sridevi, B Supraja, S Udhayakumar",
+    journal: "2019 International Conference on Vision Towards Emerging Trends in …",
+    year: 2019,
+    citedBy: 3
+  },
+  {
+    title: "Rootkit detection using deep learning: A comprehensive survey",
+    authors: "SS Kumar, S Stephen, MS Rumysia",
+    journal: "2024 10th International Conference on Communication and Signal Processing …",
+    year: 2024,
+    citedBy: 2
+  },
+  {
+    title: "Enhancing deep learning models for sentiment analysis integrating texts and emojis: A comprehensive survey",
+    authors: "SS Kumar, D Gayathri, R Shugavaneshwar",
+    journal: "2024 10th International Conference on Communication and Signal Processing …",
+    year: 2024,
+    citedBy: 2
+  },
+  {
+    title: "Prevention of Kernel Rootkit in Cloud Computing",
+    authors: "SS Kumar, AP Valavan, V Prathiksha",
+    journal: "2023 7th International Conference on Intelligent Computing and Control …",
+    year: 2023,
+    citedBy: 1
+  },
+  {
+    title: "Exploring techniques for web phishing detection: A comprehensive survey",
+    authors: "SS Kumar, B Swarnagowri, R Susmitha, R Sujitha",
+    journal: "2023 7th International Conference on Intelligent Computing and Control …",
+    year: 2023,
+    citedBy: 1
+  },
+  {
+    title: "Visual Impaired Assist Mobile App using CNN",
+    authors: "SS Kumar, B Prasana, SP Kumar",
+    journal: "2023 5th International Conference on Smart Systems and Inventive Technology …",
+    year: 2023,
+    citedBy: 1
+  },
+  {
+    title: "Volatile Kernel Rootkit Hidden Process Detection in Cloud Computing",
+    authors: "T SudalaiMuthu",
+    journal: "2022 1st International Conference on Computational Science and Technology …",
+    year: 2022,
+    citedBy: 1
+  },
+  {
+    title: "Kernel Rootkit Secret Detection in Cloud Computing",
+    authors: "T SudalaiMuthu",
+    journal: "2022 1st International Conference on Computational Science and Technology …",
+    year: 2022,
+    citedBy: 1
+  },
+  {
+    title: "Non-Volatile Kernel Root kit Detection and Prevention in Cloud Computing",
+    authors: "R Geetha Ramani, SS Kumar",
+    journal: "arXiv e-prints, arXiv: 2004.14924",
+    year: 2020,
+    citedBy: 1
+  },
+  {
+    title: "Analyzing Classroom Behavior to Enhance Student Engagement and Learning Outcomes",
+    authors: "A Sivaprakasam, RE Joseph, AS Sandeep",
+    journal: "2024 International Conference on Emerging Research in Computational Science …",
+    year: 2024,
+    citedBy: 0
+  },
+  {
+    title: "Kernel rootkit prevention model using multiclass",
+    authors: "SK Srinivasan, S Thalavaipillai",
+    journal: "International Journal of Reconfigurable and Embedded Systems 13 (2), 395",
+    year: 2024,
+    citedBy: 0
+  },
+  {
+    title: "Kernel rootkit detection multi class on deep learning techniques",
+    authors: "SK Srinivasan, SM Thalavaipillai",
+    journal: "Bulletin of Electrical Engineering and Informatics 13 (3), 2000-2008",
+    year: 2024,
+    citedBy: 0
+  },
+  {
+    title: "Video Analytics using Deep Learning in Cloud Services to Detect Corrosion-A Comprehensive Survey",
+    authors: "SS Kumar, K Gokul, I Hemanand, MS Eaknath, VM Jayabharanivelu",
+    journal: "2023 3rd International Conference on Innovative Mechanisms for Industry …",
+    year: 2023,
+    citedBy: 0
+  },
+  {
+    title: "Assessing Car Damage using Mask R-CNN",
+    authors: "SA Rahman A, SS Kumar, K Devaki",
+    journal: "arXiv e-prints, arXiv: 2004.14173",
+    year: 2020,
+    citedBy: 0
   }
 ];
 
