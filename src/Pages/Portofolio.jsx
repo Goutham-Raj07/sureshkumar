@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const publications = [
   {
     title: "Nonvolatile kernel rootkit detection using cross‐view clean boot in cloud computing",
-    authors: "R Geetha Ramani, S Suresh Kumar",
+    authors: "R Geetha Ramani, Dr. S Suresh Kumar",
     journal: "Concurrency and Computation: Practice and Experience 33 (3), e5239",
     year: 2021,
     citedBy: 9

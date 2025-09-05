@@ -36,7 +36,7 @@ const MainTitle = memo(() => (
       <span className="relative inline-block">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1]/50 to-[#a855f7]/50 blur-3xl opacity-10"></span>
         <span className="relative text-gray-800"> 
-          Suresh
+          Dr. Suresh
         </span>
       </span>
       <br />

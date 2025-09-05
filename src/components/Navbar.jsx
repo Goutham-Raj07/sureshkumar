@@ -155,7 +155,7 @@ const Navbar = () => {
                             onClick={(e) => handleNavigation(e, "/")}
                             className="text-xl font-bold text-indigo-600 hover:text-purple-600 transition-colors"
                         >
-                            Suresh Kumar S
+                            Dr. Suresh Kumar S
                         </a>
                     </div>
     

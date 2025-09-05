@@ -186,7 +186,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                   <div className="relative flex items-center gap-2 text-lg sm:text-xl md:text-2xl">
                     <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
                     <span className="text-gray-700 group-hover:text-gradient transition-all">
-                      <TypewriterEffect text="Professor Suresh Kumar S" />
+                      <TypewriterEffect text="Professor Dr. Suresh Kumar S" />
                     </span>
                   </div>
                 </a>

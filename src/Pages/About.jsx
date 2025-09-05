@@ -139,18 +139,28 @@ const ExperienceCard = memo(({ period, position, institution }) => (
 
 const educationData = [
   {
-    year: "1999",
-    degree: "BE Computer Science and Engineering",
-    institution: "Priyadarshini Engineering College"
+    year: "2025",
+    degree: "Doctorate in Computer Science and Engineering",
+    institution: "Hindustan University"
   },
   {
     year: "2008",
     degree: "ME Computer Science and Engineering",
     institution: "Rajalakshmi Engineering College"
+  },
+  {
+    year: "1999",
+    degree: "BE Computer Science and Engineering",
+    institution: "Priyadarshini Engineering College"
   }
 ];
 
 const experienceData = [
+  {
+    period: "2021 - 2025",
+    position: "Professor",
+    institution: "Rajalakshmi Engineering College (Autonomous)"
+  },
   {
     period: "2008 - 2021",
     position: "Associate Professor",
@@ -275,7 +285,7 @@ const AboutPage = () => {
                 data-aos="fade-right"
                 data-aos-duration="1300"
               >
-                Suresh Kumar S
+                Dr. Suresh Kumar S
               </span>
             </h2>
 
