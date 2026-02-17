@@ -199,7 +199,7 @@ const AboutPage = () => {
 
   const { totalPublications, totalCertificates, YearExperience } = useMemo(() => {
     const storedPublications = 17;
-    const storedCertificates = 9;
+    const storedCertificates = 10;
 
     return {
       totalPublications: storedPublications,

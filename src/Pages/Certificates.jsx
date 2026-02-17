@@ -80,6 +80,12 @@ const Certificates = () => {
       issuer: "Google Cloud & Coursera",
       image: "c9.jpeg",
       verifyLink: "coursera.org/verify/4BRPA4AMZWES"
+    },
+    {
+      title: "Professional Certification",
+      date: "",
+      issuer: "",
+      image: "cert.jpeg"
     }
   ];
 

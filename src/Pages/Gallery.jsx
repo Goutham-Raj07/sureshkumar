@@ -66,6 +66,11 @@ const Gallery = () => {
       src: "broucher.jpg",
       title: "FDP Program",
       description: "Faculty Development Program on Cloud Technology"
+    },
+    {
+      src: "gal.jpeg",
+      title: "Gallery",
+      description: "Additional gallery image"
     }
   ];
 
